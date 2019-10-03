@@ -1,0 +1,25 @@
+{
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "commands": [
+    {
+      "name": "Symbol Finder",
+      "identifier": "symbol-finder.my-command-identifier",
+      "script": "./finder-command.js",
+      "shortcut": "cmd shift ;",
+      "handlers": {
+        "run": "onRun",
+        "actions": {
+          "Shutdown": "onShutdown"
+        }
+      }
+    }
+  ],
+  "menu": {
+    "title": "Symbol Finder",
+    "isRoot": true,
+    "items": [
+      "symbol-finder.my-command-identifier"
+    ]
+  }
+}
