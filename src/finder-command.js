@@ -5,8 +5,23 @@ import Sketch from 'sketch/dom'
 
 const webviewIdentifier = 'symbol-finder.webview'
 
-const getSymbols = (doc, libs) => {
+const getSymbols = (doc, libs = []) => {
   // TODO: get symbols
+  const docSymbols = doc.getSymbols();
+  const symbolLibs = libs
+    .filter(lib => lib.enabled)
+    .reduce((acc, lib) => {
+      const symbolRefs = lib.getImportableSymbolReferencesForDocument(doc)
+        .map(symbol => ({ name: symbol.name, id: symbol.id }));
+      
+      return [...acc, ...symbolRefs];
+    }, []);
+
+  const symbolLocals = docSymbols
+    .filter(symbol => !symbol.getLibrary())
+    .map(symbol => ({ name: symbol.name, id: symbol.id }));
+
+  return [...symbolLocals, ...symbolLibs];
 }
 
 export default function () {
@@ -21,7 +36,7 @@ export default function () {
   const browserWindow = new BrowserWindow(options);
   const { webContents } = browserWindow;
   const doc = Sketch.getSelectedDocument();
-  const lib = Sketch.Library.getLibraries();
+  const libs = Sketch.Library.getLibraries();
 
   /* ===== BrowserWindow events ===== */
   browserWindow.once('ready-to-show', () => {
@@ -30,7 +45,11 @@ export default function () {
 
   /* ===== BrowserWindow.webContents events ===== */
   webContents.on('did-finish-load', () => {
-    UI.message('UI loaded!');
+    const symbols = JSON.stringify(getSymbols(doc, libs));
+
+    webContents
+      .executeJavaScript(`displaySymbols(${symbols})`)
+      .catch(console.error);
   });
 
   browserWindow.loadURL(require('../resources/webview.html'))

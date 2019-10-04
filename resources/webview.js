@@ -2,6 +2,7 @@
   const app = {
     searchRemove: document.querySelector('.sf-search__remove'),
     searchInput: document.querySelector('.sf-search input'),
+    sfCol: document.querySelector('.sf-finder-col'),
   };
 
   /* ===== Event Listener ====== */
@@ -23,6 +24,18 @@
     e.preventDefault()
   })
 
+  /* ===== Global function called from plugin ===== */
+  window.displaySymbols = (symbols) => {
+    symbols.forEach(item => {
+      const row = document.createElement('div');
+
+      row.classList.add('sf-finder-row');
+      row.innerHTML = item.name;
+
+      app.sfCol.appendChild(row);
+    });
+  }
+
   // call the plugin from the webview
   document.getElementById('button').addEventListener('click', () => {
     window.postMessage('nativeLog', 'Called from the webview')
@@ -32,5 +45,6 @@
   window.setRandomNumber = (randomNumber) => {
     document.getElementById('answer').innerHTML = 'Random number from the plugin: ' + randomNumber
   }
+  
 
 }());

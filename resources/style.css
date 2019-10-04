@@ -28,6 +28,7 @@ body {
   font-size: 14px;
   color: rgba(49, 53, 59, 0.96);
   background: #31353B;
+  overflow-y: scroll;
 }
 
 .sf-header {
@@ -95,6 +96,10 @@ body {
 
 .sf-search__remove.active {
   display: block;
+}
+
+.sf-finder {
+  color: #FFF;
 }
 
 *, *:before, *:after {
