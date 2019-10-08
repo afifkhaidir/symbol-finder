@@ -30,7 +30,10 @@ export default function () {
     width: 640,
     height: 480,
     show: false,
-    vibrancy: 'ultra-dark'
+    vibrancy: 'ultra-dark',
+    hidesOnDeactivate: false,
+    minimizable: false,
+    maximizable: false,
   };
 
   const browserWindow = new BrowserWindow(options);

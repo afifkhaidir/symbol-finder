@@ -28,7 +28,6 @@ body {
   font-size: 14px;
   color: rgba(49, 53, 59, 0.96);
   background: #31353B;
-  overflow-y: scroll;
 }
 
 .sf-header {
@@ -101,11 +100,17 @@ body {
 .sf-finder {
   display: flex;
   color: #FFF;
+  width: 100vw;
+  overflow: scroll;
 }
 
 .sf-finder-col {
-  max-width: 200px;
+  width: 180px;
+  height: calc(100vh - 64px);
   padding: 4px;
+  overflow: scroll;
+  border-right: 1px solid #40454C;
+  flex-shrink: 0;
 }
 
 .sf-finder-row {
@@ -113,24 +118,24 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  padding: 1px 8px 1px 2px;
+  padding: 1.5px 6px 1.5px 2px;
   position: relative;
 }
 
-.sf-finder-row.has-child {
+.sf-finder-row.has-children {
   cursor: pointer;
 }
 
-.sf-finder-row.has-child::after {
+.sf-finder-row.has-children::after {
   content: '';
   display: block;
   background: transparent;
-  border-left: 6px solid #FFF;
+  border-left: 5px solid #FFF;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   position: absolute;
   top: 50%;
-  right: 2px;
+  right: 0;
   transform: translateY(-50%);
 }
 
