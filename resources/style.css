@@ -107,7 +107,6 @@ body {
 .sf-finder-col {
   width: 180px;
   height: calc(100vh - 64px);
-  padding: 4px;
   overflow: scroll;
   border-right: 1px solid #40454C;
   flex-shrink: 0;
@@ -118,8 +117,13 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  padding: 1.5px 6px 1.5px 2px;
+  padding: 1.5px 8px 1.5px 4px;
+  border-radius: 3px;
   position: relative;
+}
+
+.sf-finder-row.selected {
+  background: #009BFF;
 }
 
 .sf-finder-row.has-children {
@@ -135,7 +139,7 @@ body {
   border-bottom: 4px solid transparent;
   position: absolute;
   top: 50%;
-  right: 0;
+  right: 2px;
   transform: translateY(-50%);
 }
 
