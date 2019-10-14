@@ -112,6 +112,23 @@ body {
   flex-shrink: 0;
 }
 
+.sf-finder-col.sf-preview {
+  width: 360px;
+}
+
+.sf-preview__img {
+  width: 100%;
+  margin: 24px auto;
+  text-align: center;
+  cursor: pointer;
+}
+
+.sf-preview__title {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+
 .sf-finder-row {
   width: 100%;
   white-space: nowrap;
