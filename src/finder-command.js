@@ -12,14 +12,14 @@ const getSymbols = (doc, libs = []) => {
     .filter(lib => lib.enabled)
     .reduce((acc, lib) => {
       const symbolRefs = lib.getImportableSymbolReferencesForDocument(doc)
-        .map(symbol => ({ name: symbol.name, id: symbol.id }));
+        .map(symbol => ({ name: `${lib.name} / ${symbol.name}`, id: symbol.id }));
       
       return [...acc, ...symbolRefs];
     }, []);
 
   const symbolLocals = docSymbols
     .filter(symbol => !symbol.getLibrary())
-    .map(symbol => ({ name: symbol.name, id: symbol.id }));
+    .map(symbol => ({ name: `document / ${symbol.name}`, id: symbol.id }));
 
   return [...symbolLocals, ...symbolLibs];
 }
@@ -50,10 +50,16 @@ export default function () {
   webContents.on('did-finish-load', () => {
     const symbols = JSON.stringify(getSymbols(doc, libs));
 
+    // console.log(symbols);
+
     webContents
       .executeJavaScript(`displaySymbols(${symbols})`)
       .catch(console.error);
   });
+
+  webContents.on('logSymbols', symbols => {
+    console.log(symbols);
+  })
 
   browserWindow.loadURL(require('../resources/webview.html'))
 }
