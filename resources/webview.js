@@ -2,40 +2,6 @@
   /* ==========================
    * 01. Global Variables
    * ========================== */
-  const symbolData = [
-    {
-      name: "01 Components / Button / Filled",
-      id: 1
-    },
-    {
-      name: "01 Components / Button / Ghost",
-      id: 2
-    },
-    {
-      name: "01 Components / Button / Transaction",
-      id: 3
-    },
-    {
-      name: "01 Components / Ticker / Filled",
-      id: 4
-    },
-    {
-      name: "01 Components / Ticker / Ghost",
-      id: 5
-    },
-    {
-      name: "01 Components / Bottom Sheet",
-      id: 6
-    },
-    {
-      name: "02 Icons / Digital",
-      id: 7
-    },
-    {
-      name: "Documentation",
-      id: 8
-    }
-  ];
   const app = {
     currentTree: [],
     finder: document.querySelector(".sf-finder"),
@@ -94,7 +60,7 @@
       ]
     }, []);
 
-    console.log(roots.filter(theRoot => theRoot.name === undefined));
+    // console.log(roots.filter(theRoot => theRoot.name === undefined));
 
     return roots.sort((a, b) => {
       const rootA = a.name.toUpperCase();
@@ -135,6 +101,27 @@
     app.finder.appendChild(col);
   };
 
+  app.renderPreviewImage = (previewImg) => {
+    const col = document.createElement('div');
+    col.classList.add('sf-finder-col');
+    col.classList.add('sf-preview');
+
+    app.finder.appendChild(col);
+    
+    const img = document.createElement('div');
+    img.classList.add('sf-preview__img');
+    img.setAttribute('data-symbol-id', previewImg.id);
+    img.innerHTML = previewImg.html;
+
+    col.appendChild(img);
+
+    const title = document.createElement('h2');
+    title.classList.add('sf-preview__title');
+    title.innerHTML = previewImg.name;
+
+    col.appendChild(title);
+  };
+
   app.setSelectedRow = elem => {
     /* clear prev selected from the same column */
     const prevSelected = elem.parentNode.querySelector('.selected');
@@ -172,10 +159,14 @@
 
   document.addEventListener('click', e => {
     if (e.target && e.target.matches('.sf-finder-row')) {
+      const level = parseInt(e.target.getAttribute('data-level'));
+
+      /* clear next columns */
+      app.clearColumns(level);
+
       /* if folder, create new column for children */
       if (e.target.matches('.has-children')) {
         const dirName = e.target.innerHTML;
-        const level = parseInt(e.target.getAttribute('data-level'));
 
         /* save state of current selected dirName */
         app.saveTreeState(dirName, level);
@@ -199,17 +190,27 @@
           }
           return acc;
         }, []);
-        
-        /* clear next columns */
-        app.clearColumns(level);
   
         /* append new level directory */
         app.renderSymbolElement(filteredSymbols, level + 1);
+      } else {
+        /* clear next columns */
+        app.clearColumns(level);
+        
+        /* log selected symbols */
+        window.postMessage('getSymbolImage', e.target.getAttribute('data-symbol-id'));
+
+        window.postMessage('insertSymbol', e.target.getAttribute('data-symbol-id'));
       }
 
       /* set row as selected */
       app.setSelectedRow(e.target);
     }
+
+    // if (e.target && e.target.matches('.sf-preview__img')) {
+    //   /* log selected symbols */
+    //   window.postMessage('insertSymbol', e.target.getAttribute('data-symbol-id'));
+    // }
   });
 
   // disable the context menu (eg. the right click menu) to have a more native feel
@@ -233,10 +234,8 @@
     app.renderSymbolElement(initialSymbols, 0);
   };
 
-  // call the wevbiew from the plugin
-  window.setRandomNumber = randomNumber => {
-    document.getElementById("answer").innerHTML =
-      "Random number from the plugin: " + randomNumber;
+  window.setPreviewImage = previewImg => {
+    app.renderPreviewImage(previewImg);
   };
 
   // window.displaySymbols(JSON.parse(symbolDataJson));
