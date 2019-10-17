@@ -65,7 +65,7 @@ export default function () {
 
   const browserWindow = new BrowserWindow(options);
   const { webContents } = browserWindow;
-  const { Group, Library, SymbolInstance, Page } = Sketch;
+  const { Library, SymbolInstance, Page } = Sketch;
   const doc = Sketch.getSelectedDocument();
   const libs = Library.getLibraries();
   const symbols = getSymbols(doc, libs);
