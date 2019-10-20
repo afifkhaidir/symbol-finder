@@ -61,6 +61,7 @@ export default function () {
     hidesOnDeactivate: false,
     minimizable: false,
     maximizable: false,
+    alwaysOnTop: true,
   };
 
   const browserWindow = new BrowserWindow(options);

@@ -52,12 +52,12 @@
    * Returned filtered symbols which match saved tree
    */
   app.filteredSymbols = (recentLevel) => {
-    return app.symbols.reduce((acc, symbol) => {
+    const symbols = app.symbols.reduce((acc, symbol) => {
       const matchCurrentTree = app.currentTree.reduce((match, tree, idx) => {
         if (match === false) {
           return false;
         }
-        if (symbol[`level${idx}`] === tree) {
+        if (symbol[`level${idx}`] === tree && symbol.levelCount > recentLevel) {
           return true;
         }
         return false;
@@ -71,6 +71,9 @@
       }
       return acc;
     }, []);
+
+    // console.log(symbols, app.currentTree);
+    return symbols;
   }
 
   /**
@@ -99,8 +102,6 @@
       ]
     }, []);
 
-    // console.log(roots.filter(theRoot => theRoot.name === undefined));
-
     return roots.sort((a, b) => {
       const rootA = a.name.toUpperCase();
       const rootB = b.name.toUpperCase();
@@ -121,22 +122,25 @@
   app.renderSymbolElement = (symbols, level) => {
     const roots = app.getRoots(symbols, level);
     const col = document.createElement('div');
-
-    // console.log(roots);
     
     roots.forEach(rootItem => {
       const row = document.createElement('div');
-
-      row.classList.add('sf-finder-row');
+      const rowText = document.createTextNode(rootItem.name);
 
       if (rootItem.hasChildren) {
         row.classList.add('has-children');
       } else {
+        // const img = document.createElement('img');
+
+        // img.setAttribute('src', 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjOUZBNkIwIiBkPSJNMTkgNi40MUwxNy41OSA1IDEyIDEwLjU5IDYuNDEgNSA1IDYuNDEgMTAuNTkgMTIgNSAxNy41OSA2LjQxIDE5IDEyIDEzLjQxIDE3LjU5IDE5IDE5IDE3LjU5IDEzLjQxIDEyeiIvPjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz48L3N2Zz4=');
+        
         row.setAttribute('data-symbol-id', rootItem.id);
+        // row.appendChild(img);
       }
-      
+
+      row.classList.add('sf-finder-row');
+      row.appendChild(rowText);
       row.setAttribute("data-level", level);
-      row.innerHTML = rootItem.name;
 
       col.appendChild(row);
     });
@@ -148,7 +152,7 @@
   /** 
    * Render SVG image from sketch
    */
-  app.renderPreviewImage = (previewImg) => {
+  app.renderPreviewImage = ({ id, html, name }) => {
     const col = document.createElement('div');
     col.classList.add('sf-finder-col');
     col.classList.add('sf-preview');
@@ -157,14 +161,14 @@
     
     const img = document.createElement('img');
     img.classList.add('sf-preview__img');
-    img.setAttribute('data-symbol-id', previewImg.id);
-    img.setAttribute('src', `data:image/svg+xml;base64,${window.btoa(previewImg.html)}`);
+    img.setAttribute('data-symbol-id', id);
+    img.setAttribute('src', `data:image/svg+xml;base64,${window.btoa(html)}`);
 
     col.appendChild(img);
 
     const title = document.createElement('h2');
     title.classList.add('sf-preview__title');
-    title.innerHTML = previewImg.name;
+    title.innerHTML = name;
 
     col.appendChild(title);
   };
@@ -220,10 +224,8 @@
           ? [...res, { id, name: app.getTrimmedSymbolName(val, symbolName) }]
           : res;
       }, []);
-      console.log(`filtered: `, filteredSymbol);
 
       app.symbols = app.constructSymbol(filteredSymbol);
-      console.log(`constructed: `, app.symbols);
       app.clearColumns(0, true);
       app.renderSymbolElement(app.symbols, 0);
       app.searchRemove.classList.add("active");
@@ -237,6 +239,9 @@
 
   app.searchRemove.addEventListener("click", () => {
     app.searchInput.value = "";
+    app.symbols = app.constructSymbol(app.original);
+    app.clearColumns(0, true);
+    app.renderSymbolElement(app.symbols, 0);
     app.searchRemove.classList.remove("active");
   });
 
@@ -248,7 +253,7 @@
 
       /* if folder, create new column for children */
       if (e.target.matches('.has-children')) {
-        const dirName = e.target.innerHTML;
+        const dirName = e.target.textContent;
 
         app.saveTreeState(dirName, level);
         app.renderSymbolElement(app.filteredSymbols(level), level + 1);
@@ -288,5 +293,5 @@
     app.renderPreviewImage(previewImg);
   };
 
-  window.displaySymbols(JSON.parse(symbolDataJson));
+  // window.displaySymbols(JSON.parse(symbolDataJson));
 })();
