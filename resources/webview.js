@@ -130,12 +130,7 @@
       if (rootItem.hasChildren) {
         row.classList.add('has-children');
       } else {
-        // const img = document.createElement('img');
-
-        // img.setAttribute('src', 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjOUZBNkIwIiBkPSJNMTkgNi40MUwxNy41OSA1IDEyIDEwLjU5IDYuNDEgNSA1IDYuNDEgMTAuNTkgMTIgNSAxNy41OSA2LjQxIDE5IDEyIDEzLjQxIDE3LjU5IDE5IDE5IDE3LjU5IDEzLjQxIDEyeiIvPjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz48L3N2Zz4=');
-        
         row.setAttribute('data-symbol-id', rootItem.id);
-        // row.appendChild(img);
       }
 
       row.classList.add('sf-finder-row');
@@ -171,16 +166,23 @@
     title.innerHTML = name;
 
     col.appendChild(title);
+    app.updateScroll();
   };
 
   /**
    * clear prev selected, set row as selected
    */
   app.setSelectedRow = elem => {
-    const prevSelected = elem.parentNode.querySelector('.selected');
+    const prevSelected = elem.parentNode.querySelector('.selected,.selected--prev');
+    const prevSelectedTree = document.querySelectorAll('.sf-finder-row.selected');
 
+    Array.prototype.forEach.call(prevSelectedTree, item => {
+      item.classList.remove('selected');
+      item.classList.add('selected--prev');
+    });
     if (prevSelected) {
       prevSelected.classList.remove('selected');
+      prevSelected.classList.remove('selected--prev');
     }
 
     elem.classList.add('selected');
@@ -211,6 +213,41 @@
     return words.slice(slashIdx);
   };
 
+  /**
+   * update finder scroll left
+   */
+  app.updateScroll = () => {
+    const scrollDiff = app.finder.scrollWidth - app.finder.offsetWidth;
+
+    app.finder.scrollLeft = scrollDiff;
+  };
+
+  /**
+   * update the finder column tree
+   */
+  app.handleUpdateTree = (elem) => {
+    const level = parseInt(elem.getAttribute('data-level'));
+
+    app.clearColumns(level);
+
+    /* if folder, create new column for children */
+    if (elem.matches('.has-children')) {
+      const dirName = elem.textContent;
+
+      app.saveTreeState(dirName, level);
+      app.renderSymbolElement(app.filteredSymbols(level), level + 1);
+    } else {
+      /* log selected symbols */
+      window.postMessage('getSymbolImage', elem.getAttribute('data-symbol-id'));
+
+      /* insert selected symbol */
+      window.postMessage('insertSymbol', elem.getAttribute('data-symbol-id'));
+    }
+
+    app.setSelectedRow(elem);
+    app.updateScroll();
+  };
+
 
   /* ==========================
    * 03. Event Listener
@@ -235,6 +272,9 @@
       app.renderSymbolElement(app.symbols, 0);
       app.searchRemove.classList.remove("active");
     }
+
+    /* return the scroll back to 0 */
+    app.updateScroll();
   });
 
   app.searchRemove.addEventListener("click", () => {
@@ -247,25 +287,29 @@
 
   document.addEventListener('click', e => {
     if (e.target && e.target.matches('.sf-finder-row')) {
-      const level = parseInt(e.target.getAttribute('data-level'));
+      app.handleUpdateTree(e.target);
+    }
+  });
 
-      app.clearColumns(level);
+  document.addEventListener('keydown', e => {
+    const selectedElem = document.querySelector('.selected');
 
-      /* if folder, create new column for children */
-      if (e.target.matches('.has-children')) {
-        const dirName = e.target.textContent;
+    if (!selectedElem) {
+      return;
+    }
+    if (e.key === 'ArrowUp') {
+      const prevElem = selectedElem.previousElementSibling;
 
-        app.saveTreeState(dirName, level);
-        app.renderSymbolElement(app.filteredSymbols(level), level + 1);
-      } else {
-        /* log selected symbols */
-        window.postMessage('getSymbolImage', e.target.getAttribute('data-symbol-id'));
-
-        /* insert selected symbol */
-        window.postMessage('insertSymbol', e.target.getAttribute('data-symbol-id'));
+      if (prevElem) {
+        app.handleUpdateTree(prevElem);
       }
+    }
+    if (e.key === 'ArrowDown') {
+      const nextElem = selectedElem.nextElementSibling;
 
-      app.setSelectedRow(e.target);
+      if (nextElem) {
+        app.handleUpdateTree(nextElem);
+      }
     }
   });
 
