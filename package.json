@@ -1,5 +1,6 @@
 {
   "name": "symbol-finder",
+  "description": "Finder-like interface for browsing and inserting local symbols in Sketch",
   "version": "0.0.1",
   "engines": {
     "sketch": ">=3.0"
@@ -31,5 +32,9 @@
   "dependencies": {
     "sketch-module-web-view": "^3.1.4"
   },
-  "author": "afifkhaidir <afif.khaidir@gmail.com>"
+  "author": "afifkhaidir <afif.khaidir@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/afifkhaidir/symbol-finder.git"
+  }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
 <channel>
-<title>Symbol Finder Sketch Plugin</title>
-<description>Discover your symbol easily with Symbol Finder</description>
+<title>Symbol Finder</title>
+<description>Finder-like interface for browsing and inserting local symbols in Sketch</description>
 <language>en</language>
 <item>
   <enclosure url="https://github.com/afifkhaidir/symbol-finder/releases/download/v0.0.1/symbol-finder.sketchplugin.zip" sparkle:version="0.0.1"/>
