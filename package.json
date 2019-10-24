@@ -1,7 +1,7 @@
 {
   "name": "symbol-finder",
   "description": "Finder-like interface for browsing and inserting local symbols in Sketch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "sketch": ">=3.0"
   },

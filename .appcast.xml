@@ -7,8 +7,5 @@
     <item>
       <enclosure url="https://github.com/afifkhaidir/symbol-finder/releases/download/v0.0.1/symbol-finder.sketchplugin.zip" sparkle:version="0.0.1"/>
     </item>
-    <item>
-      <enclosure url="https://github.com/afifkhaidir/symbol-finder/releases/download/v0.0.1/symbol-finder.sketchplugin.zip" sparkle:version="0.0.1"/>
-    </item>
   </channel>
 </rss>
