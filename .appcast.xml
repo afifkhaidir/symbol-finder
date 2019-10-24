@@ -5,6 +5,9 @@
     <description>Finder-like interface for browsing and inserting local symbols in Sketch</description>
     <language>en</language>
     <item>
+      <enclosure url="https://github.com/afifkhaidir/symbol-finder/releases/download/v0.0.2/symbol-finder.sketchplugin.zip" sparkle:version="0.0.2"/>
+    </item>
+    <item>
       <enclosure url="https://github.com/afifkhaidir/symbol-finder/releases/download/v0.0.1/symbol-finder.sketchplugin.zip" sparkle:version="0.0.1"/>
     </item>
   </channel>
