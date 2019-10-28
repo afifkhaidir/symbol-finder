@@ -1,6 +1,10 @@
-![Symbol Finder Icon](./assets/icon-symbol-finder.png)
+<div align="center">
+  <img width="48" src="https://user-images.githubusercontent.com/8695545/67652875-89d04e80-f979-11e9-8af6-56b314abdff5.png">
+</div>
 
-# Symbol Finder
+<h1 align="center">Symbol Finder</h1>
+<p align="center">Easily browse and insert symbols in <a href="https://www.sketch.com/">Sketch</a></p>
+
 
 ## Installation
 
