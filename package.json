@@ -1,12 +1,12 @@
 {
   "name": "symbol-finder",
-  "description": "Finder-like interface for browsing and inserting local symbols in Sketch",
+  "description": "Easily browse and insert symbols in Sketch",
   "version": "0.0.2",
   "engines": {
     "sketch": ">=3.0"
   },
   "skpm": {
-    "name": "symbol-finder",
+    "name": "Symbol Finder",
     "manifest": "src/manifest.json",
     "main": "symbol-finder.sketchplugin",
     "assets": [

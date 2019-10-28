@@ -1,8 +1,4 @@
-<div align="center">
-  <a href="https://www.sketch.com/extensions/plugins/">
-    <img width="200" height="200" src="https://raw.githubusercontent.com/afifkhaidir/symbol-finder/master/assets/icon.png">
-  </a>
-</div>
+![Symbol Finder Icon](./assets/icon-symbol-finder.png)
 
 # Symbol Finder
 
