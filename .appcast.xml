@@ -5,6 +5,9 @@
     <description>Easily browse and insert symbols in Sketch</description>
     <language>en</language>
     <item>
+      <enclosure url="https://github.com/afifkhaidir/symbol-finder/releases/download/v0.0.3/symbol-finder.sketchplugin.zip" sparkle:version="0.0.3"/>
+    </item>
+    <item>
       <enclosure url="https://github.com/afifkhaidir/symbol-finder/releases/download/v0.0.2/symbol-finder.sketchplugin.zip" sparkle:version="0.0.2"/>
     </item>
     <item>
