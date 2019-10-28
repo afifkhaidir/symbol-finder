@@ -1,7 +1,7 @@
 {
   "name": "symbol-finder",
   "description": "Easily browse and insert symbols in Sketch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "sketch": ">=3.0"
   },
