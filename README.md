@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="48" src="https://user-images.githubusercontent.com/8695545/67652875-89d04e80-f979-11e9-8af6-56b314abdff5.png">
+  <img width="120" src="https://user-images.githubusercontent.com/8695545/67652875-89d04e80-f979-11e9-8af6-56b314abdff5.png">
 </div>
 
 <h1 align="center">Symbol Finder</h1>
