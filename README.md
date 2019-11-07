@@ -5,6 +5,9 @@
 <h1 align="center">Symbol Finder</h1>
 <p align="center">Easily browse and insert symbols in <a href="https://www.sketch.com/">Sketch</a></p>
 
+<div align="center">
+  <img width="800" src="https://user-images.githubusercontent.com/30995317/68370526-4642c500-016f-11ea-96c9-1bba041ab6d5.gif">
+</div>
 
 ## Installation
 
