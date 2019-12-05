@@ -2,8 +2,9 @@
   <img width="120" src="https://user-images.githubusercontent.com/8695545/67652875-89d04e80-f979-11e9-8af6-56b314abdff5.png">
 </div>
 
-<h1 align="center">Symbol Finder</h1>
+# Symbol Finder
 [![downloads](https://img.shields.io/github/downloads/afifkhaidir/symbol-finder/total)](../../releases/latest/download/symbol-finder.sketchplugin.zip)
+
 <p align="center">Easily browse and insert symbols in <a href="https://www.sketch.com/">Sketch</a></p>
 
 <div align="center">
