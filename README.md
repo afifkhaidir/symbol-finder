@@ -3,6 +3,7 @@
 </div>
 
 <h1 align="center">Symbol Finder</h1>
+[![downloads](https://img.shields.io/github/downloads/afifkhaidir/symbol-finder/total)](../../releases/latest/download/symbol-finder.sketchplugin.zip)
 <p align="center">Easily browse and insert symbols in <a href="https://www.sketch.com/">Sketch</a></p>
 
 <div align="center">
