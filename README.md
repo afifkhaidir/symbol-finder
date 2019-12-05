@@ -5,7 +5,7 @@
 # Symbol Finder
 [![downloads](https://img.shields.io/github/downloads/afifkhaidir/symbol-finder/total)](../../releases/latest/download/symbol-finder.sketchplugin.zip)
 
-<p align="center">Easily browse and insert symbols in <a href="https://www.sketch.com/">Sketch</a></p>
+Easily browse and insert symbols in [Sketch](https://www.sketch.com/)
 
 <div align="center">
   <img width="800" src="https://user-images.githubusercontent.com/30995317/68370526-4642c500-016f-11ea-96c9-1bba041ab6d5.gif">
